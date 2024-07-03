@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人周邊商品訂單</title>
+  <link rel="stylesheet" th:href="@{/css/memberProduct.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link href="https://fontawesome.com/icons/right-to-bracket?f=classic&s=solid" rel='stylesheet'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <div class="side-bar">
+    <div class="menu">
+      <div class="item"><a href="#"><i class="fas fa-user"></i>回首頁</a></div>
+      <div class="item"><a href="#"><i class="fas fa-comments"></i>討論區</a></div>
+      <div class="item">
+        <a class="sub-btn"><i class="fas fa-cart-arrow-down"></i>查看個人訂單<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="#" class="sub-item">電影票查詢</a>
+          <a href="#" class="sub-item">個人周邊商品</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <table>
+      <thead>
+        <tr id="tr_1">
+          <th>訂單編號</th>
+          <th>訂購時間</th>
+          <th>訂單金額</th>
+          <th>狀態</th>
+          <th>明細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="order : ${orders}">
+          <td th:text="${order.prodOrdId}"></td>
+          <td th:text="${order.estTime}"></td>
+          <td th:text="'$'+${order.total}"></td>
+           <td>
+            <span th:text="${order.ordStatus == 0 ? '未完成' : (order.ordStatus == 1 ? '已完成' : '')}"></span>
+          </td>
+          
+          <td>
+            <button class="popupButton" th:attr="data-order-id=${order.prodOrdId}">明細</button>
+            
+            <div class="popupContainer" th:id="'popup_' + ${order.prodOrdId}" style="display: none;">
+              <div class="popupContent">
+                <span class="closeButton">&times;</span>
+                <h2>產品明細</h2>
+                <table>
+                  <thead>
+                    <tr id="tr_2">
+                      <th>產品名稱</th>
+                      <th>商品照片</th>
+                      <th>數量</th>
+                      <th>單價</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="detail : ${order.productDetail}">
+                      <td th:text="${detail.product.prodName}"></td>
+                      <td th:text="${detail.prodDetailId}"></td>
+                      <td th:text="${detail.prodCount}"></td>
+                      <td th:text="'$'+${detail.unitPrice}"></td>   
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll('.popupButton').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var orderId = this.getAttribute('data-order-id');
+          document.getElementById('popup_' + orderId).style.display = 'block';
+        });
+      });
+
+      document.querySelectorAll('.closeButton').forEach(function (button) {
+        button.addEventListener('click', function () {
+          this.closest('.popupContainer').style.display = 'none';
+        });
+      });
+
+      //側邊攔
+      $('.sub-btn').click(function () {
+        $(this).next('.sub-menu').slideToggle();
+        $(this).find('.dropdown').toggleClass('rotate');
+      });
+    });
+  </script>
+</body>
+
+</html>

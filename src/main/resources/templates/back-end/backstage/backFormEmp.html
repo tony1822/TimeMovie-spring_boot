@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>後台管理系統</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- Google fonts - Roboto -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+<!-- Choices CSS-->
+<link rel="stylesheet"
+	href="vendor/choices.js/public/assets/styles/choices.min.css">
+<!-- Custom Scrollbar-->
+<link rel="stylesheet"
+	href="vendor/overlayscrollbars/css/OverlayScrollbars.min.css">
+<!-- theme stylesheet-->
+<link rel="stylesheet" th:href="@{/css/style.default.premium.css}"
+	id="theme-stylesheet">
+
+<link rel="stylesheet" th:href="@{/css/memberForm.css}">
+<!-- Favicon-->
+<link rel="shortcut icon" href="img/favicon.ico">
+<link href="https://fontawesome.com/icons/right-to-bracket?f=classic&s=solid"rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+	<!-- Side Navbar -->
+	<nav class="side-navbar">
+		<div class="side-navbar-inner">
+			<!-- Sidebar Header    -->
+			<div
+				class="sidebar-header d-flex align-items-center justify-content-center p-3 mb-3">
+				<!------------------------- 左上大頭照區塊---------------------------------------->
+				<div class="sidenav-header-inner text-center">
+					
+					<h2 class="h5 text-white text-uppercase mb-0">Time後台管理</h2>
+					<p class="text-sm mb-0 text-muted">Web Developer</p>
+				</div>
+				<!-- Small Brand information, appears on minimized sidebar-->
+				<a class="brand-small text-center" href="index.html">
+					<p class="h1 m-0">BD</p>
+				</a>
+			</div>
+			<!-- Sidebar Navigation Menus-->
+			<span
+				class="text-uppercase text-gray-500 text-sm fw-bold letter-spacing-0 mx-lg-2 heading">Main</span>
+			<ul class="list-unstyled">
+				<li class="sidebar-item"><a class="sidebar-link"
+					href="index.html"> <svg
+							class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+              <use xlink:href="#real-estate-1"> </use>
+            </svg>Home
+				</a></li>
+				<li class="sidebar-item"><a class="sidebar-link"
+					href="#formsDropdown" data-bs-toggle="collapse"> <svg
+							class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+              <use xlink:href="#survey-1"> </use>
+            </svg>電影相關設定
+				</a>
+					<ul class="collapse list-unstyled " id="formsDropdown">
+						<li><a class="sidebar-link" href="forms.html">電影設定</a></li>
+						<li><a class="sidebar-link" href="forms-advanced.html">圖片管理</a></li>
+						<li><a class="sidebar-link" href="forms-autocomplete.html">場次管理</a></li>
+						<li><a class="sidebar-link" href="forms-dropzone.html">影廳管理</a></li>
+					</ul></li>
+				<li class="sidebar-item active"><a class="sidebar-link"
+					th:href="@{/backstage/backController}"> <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2"> </svg>員工管理
+				</a></li>
+				
+				 <li ><a class="sidebar-link" th:href="@{/backstage/toMemProfile}">
+              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2"> </svg>會員管理 </a></li>
+              
+			</ul>			
+		</div>
+	</nav>
+	<div class="page">
+		<!-- navbar-->
+		<header class="header mb-5 pb-3">
+			<nav class="nav navbar fixed-top">
+				<div class="container-fluid">
+					<div
+						class="d-flex align-items-center justify-content-between w-100">
+						<div class="d-flex align-items-center">
+							<use xlink:href="#menu-1"> </use>
+							</a>
+							<div
+								style="color: aliceblue; font-size: 20px; margin-left: -30px;">員工資料管理</div>
+						</div>
+						<ul
+							class="nav-menu mb-0 list-unstyled d-flex flex-md-row align-items-md-center">
+							<!-- Notifications dropdown-->
+
+							<!-- Messages dropdown-->
+
+							<!-- Languages dropdown    -->
+							<li class="nav-item dropdown">
+								<ul class="dropdown-menu dropdown-menu-end mt-sm-3 shadow-sm"
+									aria-labelledby="languages">
+								</ul>
+							</li>
+							<!-- Log out-->
+							<li class="nav-item"><a
+								class="nav-link text-white text-sm ps-0"
+								href="/empLogin/html/empLogin.html"> <span
+									class="d-none d-sm-inline-block">Logout</span> <svg
+										class="svg-icon svg-icon-xs svg-icon-heavy">
+                    <use xlink:href="#security-1"> </use>
+                  </svg></a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<!------------------------------------- 內容放這裡 ---------------------------------------------->
+
+		<!------------------------------------- 以下為新增員工 ---------------------------------------------->
+		<div class="container mt-3">
+			<button type="button" class="btn btn-primary" id="addEmployeeBtn">新增員工</button>
+			<span style="color: red" th:utext="${success}"> </span>
+			<span style="color: red" th:utext="${updateSuccess}"> </span>
+		</div>
+
+		<div id="addEmployeeModal" class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h5 class="modal-title">新增員工</h5>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/backstage/regisEmp}" method="POST">
+							<div class="mb-3">
+								<label for="employee-name" class="form-label">姓名:</label> <input
+									type="text" class="form-control" id="employee-name"
+									name="member_name" required>
+							</div>
+							<div class="mb-3">
+								<label for="employee-account" class="form-label">帳號:</label> <input
+									type="text" class="form-control" id="employee-account"
+									name="member_account" required>
+							</div>
+							<div class="mb-3">
+								<label for="employee-password" class="form-label">密碼:</label> <input
+									type="password" class="form-control" id="employee-password"
+									name="member_password" required>
+							</div>
+							<button type="submit" class="btn btn-primary">提交</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-----------------------------以下為列表--------------------->
+
+		<table class=" stripe custom-table" id="table_id">
+			<thead>
+				<tr>
+					<th>編號</th>
+					<th>姓名</th>
+					<th>狀態</th>
+					<th>帳號</th>
+					<th>密碼</th>
+					<th class="narrow-row">功能</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="emp : ${allEmp}"
+					th:class="${emp.memberId == newlyAddedMemberId ? 'employee-red':''}">
+					<td th:text="${emp.memberId}"></td>
+					<td th:text="${emp.memberName}"></td>
+					<td th:text="${emp.isAdmin ? '在職' : '已離職'}"
+					th:id="'admin_' + ${emp.memberId}"></td>
+					<td th:text="${emp.memberAccount}"></td>
+					<td th:text="${emp.memberPassword}"
+						th:id="'password_' + ${emp.memberId}"></td>
+	<td>	
+								               <!--- submitForm(員工的ID)下面等於這個--->
+	<button class="custom-button" th:onclick="'submitForm(' + ${emp.memberId} + ')'">個人資料</button>					 
+ <form th:id="'customForm_'+${emp.memberId}"  th:action="@{/backstage/toEmpProfile}" method="post" style="display: none;">    
+    <input type="hidden" name="memberId" th:value="${emp.memberId}" /> 
+</form>
+    
+      
+						<button class="custom-button"
+							th:attr="data-member-id=${emp.memberId}"
+							onclick="resetPassword(this.getAttribute('data-member-id'))">重設密碼</button>
+							
+							
+						<button class="custom-button"
+						th:attr="admin_id=${emp.memberId}"
+							onclick="resetAdmin(this.getAttribute('admin_id'))"
+						>修改狀態</button>
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+		<footer
+			class="main-footer w-100 position-absolute bottom-0 start-0 py-2"
+			style="background: #222">
+			<div class="container-fluid">
+				<div class="row text-center gy-3">
+					<div class="col-sm-6 text-sm-start">
+						<p class="mb-0 text-sm text-gray-600">TimeMovie &copy; SINCE
+							2024</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div class="collapse" id="style-switch">
+		<h5 class="mb-3">Select theme colour</h5>
+		<form class="mb-3">
+			<select class="form-select" name="colour" id="colour">
+				<option value="">select colour variant</option>
+				<option value="css/style.default.premium.css">green</option>
+				<option value="css/style.red.premium.css">red</option>
+				<option value="css/style.violet.premium.css">violet</option>
+				<option value="css/style.pink.premium.css">pink</option>
+				<option value="css/style.sea.premium.css">sea</option>
+				<option value="css/style.blue.premium.css">blue</option>
+			</select>
+		</form>
+		<p>
+			
+		</p>
+		<p class="text-muted text-xs">Stylesheet switching is done via
+			JavaScript and can cause a blink while page loads. This will not
+			happen in your production code.</p>
+	</div>
+	<!-- JavaScript files-->
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/chart.js/Chart.min.js"></script>
+	<script src="vendor/just-validate/js/just-validate.min.js"></script>
+	<script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+	<script src="vendor/overlayscrollbars/js/OverlayScrollbars.min.js"></script>
+	<script src="js/demo.js"> </script>
+	<!-- Main File-->
+	<script src="js/front.js"></script>
+	<script>
+
+	//來提交個人資料表單，用js來抓，就不用畫面有form怕版亂掉
+function submitForm(memberId) {
+    var formId = 'customForm_' + memberId;
+    console.log(formId); 
+    var form = document.getElementById(formId);
+    console.log(form); 
+    if (form) {
+        form.submit();
+    } else {
+        console.error("找不到");
+    }
+}
+
+	
+	
+	
+function resetPassword(memberId) {
+	  console.log(memberId); 
+	    $.ajax({
+	      url: '/backstage/resetPassword',
+	      type: 'POST',
+	      data: { memberId: memberId },
+	      success: function(response) {
+	          console.log("Response from server:", response); 
+	          
+	        if (response.success) {
+	        	console.log("New password:", response.newPassword);
+	        	
+	          $('#password_' + memberId).text(response.newPassword).css("color","red");
+	          
+	        } else {
+	          alert('重設狀態失敗');
+	        }
+	      },
+	      error: function() {
+	        alert('重設狀態請求失敗');
+	      }
+	    });
+	  }
+	  
+function resetAdmin(memberId) {
+	  console.log(memberId); 
+	    $.ajax({
+	      url: '/backstage/resetAdmin',
+	      type: 'POST',
+	      data: { memberId: memberId },
+	      success: function(response) {	          
+	        if (response.success) {
+	        	console.log("New password:", response.newPassword);     	
+	          $('#admin_' + memberId).text("離職").css("color","red");
+	          
+	        } else {
+	          alert('重設密碼失敗');
+	        }
+	      },
+	      error: function() {
+	        alert('重設密碼請求失敗');
+	      }
+	    });
+	  }
+	  
+	  
+	  
+
+    function injectSvgSprite(path) {
+
+      var ajax = new XMLHttpRequest();
+      ajax.open("GET", path, true);
+      ajax.send();
+      ajax.onload = function (e) {
+        var div = document.createElement("div");
+        div.className = 'd-none';
+        div.innerHTML = ajax.responseText;
+        document.body.insertBefore(div, document.body.childNodes[0]);
+      }
+    }
+    // this is set to BootstrapTemple website as you cannot 
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('icons/orion-svg-sprite.svg');
+
+    var modal = document.getElementById('addEmployeeModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("addEmployeeBtn");
+
+    // Get the <span> element that closes the modal
+    var span = modal.querySelector(".close");
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+    $(document).ready(function() {
+        $('#table_id').DataTable({
+        	  paging: false, // Disable pagination
+              searching: false, // Disable searching
+              info: false, // Disable info display        	
+        });
+    });
+    
+   
+  </script>
+
+</body>
+
+</html>

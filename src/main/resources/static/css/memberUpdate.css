@@ -1,0 +1,77 @@
+
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+    margin-top: 5px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
+  form {
+    border: 6px solid #ddd; 
+    border-radius: 10px; 
+    padding: 20px; 
+    max-width: 600px; 
+    margin: 0 auto;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+
+table {
+    width: 450px;
+    background-color: white;
+    margin: auto; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+    padding-top: 0px; 
+} 
+
+table td {
+    margin-bottom: 30px;
+    padding-top: 20px; 
+    padding-bottom: 7px; 
+}
+
+tr {
+    vertical-align: middle; 
+    padding: 50px 0; 
+}
+
+h3 {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    margin: 20px; 
+    color: hsl(16, 88%, 64%); 
+    font-size: 24px;
+}
+h4 a {
+    margin-left: -60px;
+    text-decoration: none; 
+}
+
+h4 a:hover {
+    text-decoration: underline;
+}
+input[type="submit"] {
+    margin-left: 240px; 
+    background-color: #ffecb3;
+    color: #333; 
+    font-size: 20px; 
+    padding: 10px 20px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+input[type="submit"]:hover {
+    background-color: #ffcc80; 
+}
+input[type="text"] {
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    padding: 3px  3px;
+}
+

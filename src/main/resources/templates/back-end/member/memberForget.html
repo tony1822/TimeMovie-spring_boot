@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet"  th:href="@{/css/memberForget.css}">
+  <title>忘記密碼</title>
+
+</head>
+<body>
+  <div class="container">
+    <div class="title">忘記密碼</div>
+    <a th:href="@{/member/}" class="back-button">返回首頁</a>
+    
+    <form  id="forgetPasswordForm"   th:action="@{/member/forgetSubmit}" >
+      <div class="input-box">
+        <span class="details">電子信箱</span>
+        <input  id="emailInput"  type="text" placeholder="請輸入您的電子信箱" required>
+      </div>
+      <div class="button">
+        <input type="submit" value="送出">
+          <div id="message" style="display: none; color: red;"></div>
+      </div>
+    </form>
+  </div>
+  
+  
+  <script>
+    $(document).ready(function() {
+        $('#forgetPasswordForm').submit(function(event) {
+            event.preventDefault(); // 阻止表單默認提交行為
+            
+            // 獲取表單數據
+            var formData = {
+                email: $('#emailInput').val()
+            };
+            
+            // 使用AJAX提交表單數據
+            $.ajax({
+                type: 'POST',
+                url: $('#forgetPasswordForm').attr('action'),
+                data: formData,
+                
+                success: function(response) {
+                	$('input[type="text"]').val('');
+                    // 成功時顯示消息
+                    $('#message').text(response).show();
+                },
+                error: function(xhr, status, error) {
+                    // 失敗時顯示消息
+                    $('#message').text(xhr.responseText).show();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

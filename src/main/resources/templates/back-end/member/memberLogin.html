@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>會員登入</title>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'rel='stylesheet'>
+<link rel="stylesheet"  th:href="@{/css/memberLogin.css}">
+
+</head>	
+
+<body>
+	<div class="wrapper">
+	
+		<form method="post"  th:object="${memberVO}" th:action="@{LogIn}">
+			<h1>Login</h1>
+			<div class="input-box">
+				<input type="text"  th:field="*{memberAccount}"  placeholder="Useraccount">
+				<i class='bx bxs-user'></i>
+				<div style="color:red" th:if="${#fields.hasErrors('memberAccount')}" th:errors="*{memberAccount}" ></div>
+			</div>
+
+			<div class="input-box">
+				<input type="password"  th:field="*{memberPassword}"  placeholder="Password">
+				<i class='bx bxs-lock'></i>
+				<div style="color:red" th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" ></div>
+				<div style="color:red" th:utext="${erroMessage}"></div>
+			</div>
+
+			<div class="forget">
+				<a th:href="@{forget}">忘記密碼?</a>
+			</div>
+			
+			<button type="submit" class="btn">Login</button>
+			<div class="message" th:utext="${verifySubmit}"></div>
+			<div class="message" th:utext="${verifySuccess}"></div>
+			<div class="message" th:utext="${verifyFalse}"></div>
+			<div class="message" th:utext="${statusFail}" style="margin-left: 120px"></div>	
+			<div class="register-link">
+				<p>
+					還沒有帳號?<a th:href="register">註冊</a>
+				</p>
+			</div>
+		</form>
+	</div>
+
+
+</body>
+
+</html>

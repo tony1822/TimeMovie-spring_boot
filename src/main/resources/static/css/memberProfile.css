@@ -1,0 +1,240 @@
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+body{
+/* min-height: 100vh;*/
+ background: white;
+ color: white;
+ background-size: cover;
+ background-position: center;
+}
+
+.side-bar{
+ background:linear-gradient(to bottom, #87619d, #1c1c1c);
+ backdrop-filter: blur(15px);
+ width: 250px;
+ height: 100vh;
+ /*position: fixed;*/
+ float:left;
+ top: 0;
+ left: 0 px;
+ overflow-y: auto;
+ transition: 0.6s ease;
+ transition-property: left;
+ left: 0;
+}
+
+.side-bar::-webkit-scrollbar {
+  width: 0px;
+}
+
+.side-bar.active{
+ left: 0;
+}
+.side-bar .menu{
+ width: 100%;
+ margin-top: 30px;
+}
+
+.side-bar .menu .item{
+ position: relative;
+ cursor: pointer;
+}
+
+.side-bar .menu .item a{
+ color: #fff;
+ font-size: 16px;
+ text-decoration: none;
+ display: block;
+ padding: 6px 30px;
+ line-height: 60px;
+}
+
+.side-bar .menu .item a:hover{
+ background: #33363a;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item i{
+ margin-right: 20px;
+}
+
+.side-bar .menu .item a .dropdown{
+ position: absolute;
+ right: 0;
+ margin: 20px;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu{
+ background: #262627;
+ display: none;
+}
+
+.side-bar .menu .item .sub-menu a{
+ padding-left: 64px;
+}
+.side-bar .menu .item a.home-link {
+  padding-left: 34px; /* 調整回首頁標籤往右移動 */
+}
+
+.rotate{
+ transform: rotate(90deg);
+}
+
+.menu-btn{
+ position: absolute;
+ color: rgb(0, 0, 0);
+ font-size: 35px;
+ margin: 26px;
+ cursor: pointer;
+}
+
+.main{
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 50px;
+}
+
+
+  .info-item {
+        padding: 10px; 
+        line-height: 3.5;
+				width: 380px;
+    }
+
+    .member-info {
+        left: 0;
+        width: 380;
+        background-color: white;
+        color: black;
+        padding: 10px;
+        z-index: 999;
+        margin: -16px 0px 0px 70px; /* 調整margin-top的值 */
+        display: inline-block;
+		margin-left: 70px;
+    }
+       .fo{
+		border: 6px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+		margin-top: 10px;
+		margin-left: 20px;
+    }
+		.fo3{
+		border: 6px solid #ddd; 
+    border-radius: 10px; 
+    width: 250px;
+		margin-top: -19px;
+			margin-left: -45px;
+			height: 615px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+
+
+				}
+    
+    
+    
+    
+
+    .title {
+        color: black; 
+        float:left;
+        margin: 50px 0px 10px 50px; /* 調整margin-top的值 */
+        width: 600px;
+		margin-left: 85px;
+    }
+
+
+
+.info-item span {
+  margin-right: 50px; 
+}
+
+form{
+  width: 550px; 
+}
+
+.preview {
+  background:#888888;
+  width:200px;
+  height:auto;
+  text-align:center;
+  border-radius: 50%;
+/*   border: 2px solid black; */
+  
+}
+
+   	/* #file.image_uploads {
+   		object-fit: contain;
+   		width: 500px;
+   		height: 350px;
+     color: black;
+   	} */
+
+   	.top {
+		   width:auto;
+		   height:auto;
+		   float:left;
+   	}
+
+.navigation-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ffecb3;
+        color: hsl(0, 0%, 0%);
+        margin-left: 80px;
+        margin-top: 4px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s; 
+				width:150px;
+    }
+
+.navigation-button:hover {
+    background-color: #ffcc80; 
+}
+  #btn_submit {
+        padding: 6px 13px; 
+        background-color: #ffecb3;
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px; 
+        transition: background-color 0.3s;
+				margin-left: -8px;
+				width: 90px;
+				height: 35px;
+    }
+
+#btn_submit:hover {
+  background-color: #ffcc80;
+}
+
+	#file_name_display {
+	     padding: 6px 13px; 
+        background-color: hwb(187 50% 7%);
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px; 
+        transition: background-color 0.3s;
+				margin-left: 60px;
+				width: 90px;
+				height: 35px;
+}
+		#file_name_display:hover{
+			background-color: #66acb5;
+		}
+button {
+    border: none;
+    outline: none;
+}

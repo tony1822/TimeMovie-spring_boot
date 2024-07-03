@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>員工登入系統</title>
+<link rel="stylesheet" th:href="@{/css/empLogin.css}">
+</head>
+<body>
+	<div class="login-container">
+    <img src="/images/TIMELOGO.png" alt="Logo" class="logo">
+    <h1>員工登入系統</h1>
+
+    <form th:action="@{/backstage/login}" method="post" th:object="${memberVO}">
+    
+        <div class="input-group">
+    <label for="employee-id" style="color: #583030;">帳號:</label>
+    <input type="text" id="employee-id" th:field="*{memberAccount}" placeholder="請輸入員工帳號">
+</div>
+<div class="error-message" th:if="${#fields.hasErrors('memberAccount')}" th:errors="*{memberAccount}"></div>
+
+<div class="input-group">
+    <label for="password" style="color: #583030;">密碼:</label>
+    <input type="password" id="password" th:field="*{memberPassword}" placeholder="請輸入員工密碼">
+</div>
+<div class="error-message" th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" style=""></div>
+<div style="color:red" th:utext="${erroMessage1}"></div>
+<div style="color:red" th:utext="${erroMessage2}"></div>
+        <button type="submit">登入</button>
+    </form>
+</div>
+
+	<footer class="footer"> TimeMovie Cinema © SINCE 2024 </footer>
+</body>
+</html>

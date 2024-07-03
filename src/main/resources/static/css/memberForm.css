@@ -1,0 +1,124 @@
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table th, .custom-table td {
+ 
+  padding: 8px;
+  text-align: left;
+  
+}
+
+.custom-table th {
+  background-color: rgb(8, 91, 132);
+  color: hsl(0, 0%, 99%);
+}
+
+.custom-button {
+  background-color: hsl(211, 76%, 40%);
+
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px;
+  cursor: pointer;
+  margin-right: 2px; /* 調整按鈕之間的右邊距 */
+  margin-left: 20px; /* 調整按鈕之間的右邊距 */
+  padding: 5px 10px; /* 調整按鈕內容的填充 */
+  font-size: 14px; /* 調整按鈕文字大小 */
+}
+
+.custom-button:hover {
+  background-color: rgb(6, 65, 127);
+}
+
+.narrow-row {
+  width: 34%; 
+}
+
+
+/* 以下為跳出視窗css */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+  margin: 7% auto;
+  width: 80%;
+  max-width: 600px;
+}
+
+.modal-content {
+  background-color: #fff; /* 修改為白色背景 */
+  padding: 20px;
+  border: none; /* 移除邊框 */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
+  
+}
+
+/* Close button style */
+.close {
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  border: none; /* 去除邊框 */
+  background: none; /* 去除背景 */
+}
+
+.close:hover {
+  color: hwb(0 73% 25%);
+}
+
+/* 美化按鈕 */
+.btn-primary {
+  background-color: hsl(211, 82%, 58%);
+  border-color: #007bff;
+  margin-top: 10px; /* 上方距離增加 10px */
+  margin-bottom: 10px; /* 下方距離增加 10px */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+
+}
+.modal-content .form-label {
+  color: hwb(0 0% 100%); /* 黑一點的字體顏色 */
+}
+
+.modal-content .modal-body input[type="text"],
+.modal-content .modal-body input[type="password"] {
+    background-color: #f8f9fa; /* 輸入框的背景顏色 */
+    border-color: #ced4da; /* 輸入框的邊框顏色 */
+    color: #495057; /* 輸入框文字的顏色 */
+}
+
+.modal-content .modal-body .btn-primary {
+  display: block;
+  margin: 0 auto; /* 將按鈕置中 */
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: hsl(208, 47%, 87%); /* Light grey for even rows */
+}
+
+ .employee-red {
+   color:red; /* 设置红色背景 */
+        }

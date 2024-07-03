@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>個人周邊商品訂單</title>
+<link rel="stylesheet" th:href="@{/css/memberTicket.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link
+	href="https://fontawesome.com/icons/right-to-bracket?f=classic&s=solid"
+	rel='stylesheet'>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+	charset="utf-8"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+	<div class="side-bar">
+		<div class="menu">
+			<div class="item">
+				<a href="#"><i class="fas fa-user"></i>修改資料</a>
+			</div>
+			<div class="item">
+				<a href="#"><i class="fas fa-comments"></i>討論區</a>
+			</div>
+			<div class="item">
+				<a class="sub-btn"><i class="fas fa-cart-arrow-down"></i>查看個人訂單<i
+					class="fas fa-angle-right dropdown"></i></a>
+				<div class="sub-menu">
+					<a href="#" class="sub-item">電影票查詢</a> <a href="#" class="sub-item">個人周邊商品</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-5">
+		<h2 class="title">已預訂</h2>
+		<table class="table table-bordered table-hover"
+			style="width: 82%; border: 2px solid #ddd;">
+			<thead>
+				<tr>
+					<th>購票日期</th>
+					<th>電影名稱</th>
+					<th>狀態</th>
+					<th>付款方式</th>
+					<th>金額</th>
+					<th>退票</th>
+					<th>詳細資訊</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orders}">
+					<td th:text="${order.BuyTicketsDate}"></td>
+
+					<!-- 下面是來抓取電影名稱，<th:block>可以創建一個不會形成html的區塊，可以在裡面先抓取想要的邏輯 -->
+					<td><th:block
+							th:each="ticket, iterStat : ${order.TicketLists}">
+							<span th:if="${iterStat.index == 0}"
+								th:text="${ticket.movieId.MovieName}"></span>
+						</th:block></td>
+
+					<td th:text="${order.MovieOrderStatusText}"></td>
+					<td>信用卡</td>
+					<td th:text="${order.MovieOrderTotal}"></td>
+					<td><button class="btn btn-circle  btn-danger"
+							style="width: 50px; height: 50px; padding: 6px 0; border-radius: 50%; line-height: 1; padding-bottom: 30px; font-size: 20px;">__</button></td>
+					<td><button class="btn btn-primary"
+							th:onclick="' showDetails('+${order.movieOrderId}+')' ">查看</button></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<th:block th:each="order : ${orders}">
+		<div class="modal fade"
+			th:id="'detailsModal_' + ${order.movieOrderId}" tabindex="-1"
+			aria-labelledby="detailsModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content" style="width: 700px;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="detailsModalLabel"
+							style="color: #52c252; margin-left: 290px;">訂票名細</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+
+					<div class="modal-body,info-table">
+						<div class="info-table">
+							<div style="padding-top: 80px;">QR-Code:</div>
+
+							<div>
+								<img th:src="@{/images/qrCode.png}" alt="QR Code"
+									class="img-fluid">
+							</div>
+
+							<div>電影名稱：</div>
+
+							<th:block th:each="ticket, iterStat : ${order.TicketLists}">
+								<div th:if="${iterStat.index == 0}"
+									th:text="${ticket.movieId.MovieName}"></div>
+							</th:block>
+							<!-- 這個表格是信斈做的, 他說0=6:00, 1=12:00, 2=18:00 -->
+
+							<div style="padding-top: 30px;">播映時間：</div>
+
+							<th:block th:each="ticket, iterStat : ${order.TicketLists}">
+								<div th:if="${iterStat.index == 0}">
+									<div th:switch="${ticket.ShowTimesId.ShowTime}">
+										<div th:case="0">6:00</div>
+										<div th:case="1">12:00</div>
+										<div th:case="2">18:00</div>
+									</div>
+								</div>
+							</th:block>
+
+							<div style="padding-top: 30px;">票種：</div>
+
+							<div>
+								<table class="ticket-table">
+									<tbody>
+										<tr th:each="ticket: ${order.TicketLists}">
+											<td class="ticket-item small"
+												th:text="${ticket.TicketTypesId.TicketTypeName}"></td>
+											<td class="ticket-item ticket-value1">X1張</td>
+											<td class="ticket-item ticket-value"
+												th:text="${ticket.TicketTypesId.TicketPrice}+'元'"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div>影廳：</div>
+
+							<th:block th:each="ticket, iterStat : ${order.TicketLists}">
+								<div th:if="${iterStat.index == 0}"
+									th:text="${ticket.CinemaId.CinemaName}"></div>
+							</th:block>
+
+							<div>座位：</div>
+
+						<div>
+    <th:block th:each="ticket, iterStat : ${order.TicketLists}">
+        <th:block th:if="${iterStat.index != 0}">,</th:block>
+        <p style="display: inline-block;" th:text="${ticket.SeatNumber}"></p>
+    </th:block>
+</div>
+	
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// 側邊攔的下拉功能
+			$('.sub-btn').click(function() {
+				$(this).next('.sub-menu').slideToggle();
+				$(this).find('.dropdown').toggleClass('rotate');
+			});
+		});
+
+		function showDetails(orderId) {
+			var modalId = '#detailsModal_' + orderId;
+			$(modalId).modal('show');
+		}
+	</script>
+</body>
+
+</html>

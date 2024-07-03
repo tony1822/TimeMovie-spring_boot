@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="stylesheet" th:href="@{/css/memberUpdate.css}">
+<title>會員資料修改</title>
+
+
+</head>
+<body bgcolor='white'>
+
+	<FORM th:action="@{/member/update}" th:object="${memberVO}" method="post">
+		<table id="table-1">
+			<tr>
+				<td>
+					<h3>資料修改</h3>
+					<h4>
+						<a href="#">回首頁</a>
+					</h4>
+				</td>
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				<td>會員編號:<font color=red><b>*</b></font></td>
+				<td >
+				<input type="text" th:field="*{memberId}" readonly />
+				</td>
+			</tr>
+			<tr>
+				<td>會員姓名:</td>
+				<td><input type=text th:field="*{memberName}" size="45" />
+					<div style="color: red" th:if="${#fields.hasErrors('memberName')}"
+						th:errors="*{memberName}"></div></td>
+			</tr>
+			<tr>
+				<td>會員帳號:</td>
+				<td><input type=text th:field="*{memberAccount}" size="45" />
+					<div style="color: red"
+						th:if="${#fields.hasErrors('memberAccount')}"
+						th:errors="*{memberAccount}"></div></td>
+			</tr>
+			<tr>
+				<td>會員信箱:</td>
+				<td><input type=text th:field="*{memberEmail}" size="45" />
+					<div style="color: red" th:if="${#fields.hasErrors('memberEmail')}"
+						th:errors="*{memberEmail}"></div></td>
+			</tr>
+			<tr>
+				<td>會員電話:</td>
+				<td><input type=text th:field="*{memberPhone}" size="45" />
+					<div style="color: red" th:if="${#fields.hasErrors('memberPhone')}"
+						th:errors="*{memberPhone}"></div></td>
+			</tr>
+			<tr>
+				<td>會員密碼:</td>
+				<td><input type=text th:field="*{memberPassword}" size="45" />
+					<div style="color: red"
+						th:if="${#fields.hasErrors('memberPassword')}"
+						th:errors="*{memberPassword}"></div></td>
+			</tr>
+			<tr>
+				<td>確認更改密碼:</td>
+				<td><input type="password" name="paswdc" placeholder="請確認會員密碼"
+					size="45">
+					<div style="color: red" th:text="${#request.getAttribute('erroMessage1')}"></div>
+					<div style="color: red" th:text="${#request.getAttribute('erroMessage2')}"></div></td>
+			</tr>
+		</table>
+<!-- 		<input type="hidden" th:value="${#dates.format(member.memberRegisterDatetime,'yyyy-MM-dd HH:mm:ss')}"> -->
+		<br> <input type="submit" value="送出修改">
+	</FORM>
+</body>

@@ -1,0 +1,91 @@
+ .custom-table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 7%;
+    }
+    .custom-table th, .custom-table td {
+      padding: 15px;
+      text-align: center;
+       width:2%;
+    }
+    .custom-table td {
+      height: 70px; /* 增加表格單元格的高度 */
+    }
+    .custom-table th {
+      background-color: #57c6a0;
+      color: hsl(0, 0%, 99%);
+    }
+    .custom-button {
+      background-color: rgb(32, 141, 102);
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 2px;
+      cursor: pointer;
+      margin-right: 2px; /* 調整按鈕之間的右邊距 */
+      margin-left: -8px; /* 調整按鈕之間的左邊距 */
+      padding: 5px 10px; /* 調整按鈕內容的填充 */
+      font-size: 14px; /* 調整按鈕文字大小 */
+    }
+    .custom-button:hover {
+      background-color: #1a654b;
+    }
+    .narrow-row {
+      width: 34%; 
+    }
+    .custom-table tbody tr:nth-child(even) {
+      background-color: hwb(148 66% 11%); /* Light grey for even rows */
+    }
+ 
+
+    .imgg {
+      width: 130px; /* 調整此值以改變單元格寬度 */
+      
+    }
+    .email{
+      width: 230px;
+    }
+    .haha {
+      color: #000000;
+    }
+
+
+    .dataTables_paginate .paginate_button {
+    background-color: hwb(0 60% 40%) !important;
+    color: white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: hsl(0, 0%, 0%) !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: hsl(0, 0%, 100%) !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+
+.red-text{
+	 background-color: red;
+    color: white;
+
+}
+.red-text:hover {
+    /* 在 hover 时的样式 */
+    background-color: darkred;
+    /* 更改颜色为深红色 */
+}

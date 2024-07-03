@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>會員中心</title>
+  
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <link href="https://fontawesome.com/icons/right-to-bracket?f=classic&s=solid" rel='stylesheet'>
+   <link rel="stylesheet"  th:href="@{/css/memberProfile.css}">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
+ </head>
+ 
+ <body>
+ 	  <div class="side-bar">
+    <div class="menu">
+      <div class="item"><a href="#" class="home-link"><i class="fas fa-user"></i>回首頁</a></div>
+      <div class="item"><a href="#"><i class="fas fa-comments"></i>討論區</a></div>
+      <div class="item">
+        <a class="sub-btn"><i class="fas fa-cart-arrow-down"></i>查看個人訂單<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a th:href="@{goTicket(memberId=${memberVO.memberId})}" class="sub-item">電影票查詢</a>
+          <a th:href="@{goProduct(memberId=${memberVO.memberId})}" class="sub-item">個人周邊商品</a>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	
+	<div style="float:left; width:500px;">
+	<form method="post" th:action="@{ToUpdate}" class="fo">
+		<div class="title"><h1>會員中心</h1></div>
+		<div class="member-info">
+			<div class="info-item">
+				<span>會員編號</span>
+				<span th:text="${memberVO.memberId}"></span>
+			</div>
+
+			<div class="info-item">
+				<span>會員姓名</span>
+				<span th:text="${memberVO.memberName}"></span>
+			</div>
+
+			<div class="info-item">
+				<span>會員帳號</span>
+				<span th:text="${memberVO.memberAccount}"></span>
+			</div>
+
+			<div class="info-item">
+				<span>會員信箱</span>
+				<span th:text="${memberVO.memberEmail}"></span>
+			</div>
+
+			<div class="info-item">
+				<span>會員電話</span>
+				<span th:text="${memberVO.memberPhone}"></span>
+			</div>
+
+			<div class="info-item">
+				<span>註冊日期</span>
+				<span th:utext= "${#temporals.format(memberVO.memberRegisterDatetime,'yyyy-MM-dd HH:mm:ss')}"></span>
+			</div>
+		<input type="hidden" name="memId" th:value="${memberVO.memberId}" >
+      	<button type="submit" class="navigation-button">修改資料</button>
+		</div>
+	</form>		
+	</div>
+	
+	
+
+	<div style="float:left; width:10px; margin-top: 30px; margin-left:120px;">
+		<form method="post" enctype="multipart/form-data" th:action="@{/member/updateImg}" class="fo3">
+			<div style="margin-top:5%;  margin-left:20px">
+				<div class="preview" style="background:white;height:202px; width:202px; text-align:center;z-index:1; border: solid black; margin-right: 200px;">
+				<img alt="" th:src="'data:image/png;base64,' + ${base64Img}" style="width: 198px; height: 198px; border-radius: 50%;">
+					<p style="line-height: 180px;">未選擇任何檔案</p>				
+				</div>
+				
+			<div style="margin-top:20px; " >
+					<input type="button" value="選擇圖片" id="file_name_display" />
+					<input type="file" id="image_uploads" name="images" style="display: none;" >		
+				</div>
+				
+				<div style="margin-top:20px; margin-left: 68px;" >
+					<button type="submit" id="btn_submit" >送出資料</button>
+					<input type="hidden" name="memId" th:value="${memberVO.memberId}" >
+				</div>
+			</div>
+		</form>
+	</div>
+ 	
+
+
+
+
+
+ 	<script type="text/javascript">
+		 var input = document.getElementById('image_uploads');
+		 var preview = document.querySelector('.preview');
+		 input.addEventListener('change', updateImageDisplay); function updateImageDisplay() {
+			 while (preview.firstChild) {
+				 preview.removeChild(preview.firstChild);
+			 }
+
+			 if (input.files.length === 0) {
+				 var para = document.createElement('p');
+				 para.textContent = '未選擇任何檔案';
+				 para.style = "line-height: 300px;";
+				 preview.appendChild(para);
+			 }
+			 else {
+        var para = document.createElement('p');
+            var image = document.createElement('img');
+            image.src = window.URL.createObjectURL(input.files[0]);
+            image.style.width = "198px"; // 修改圖片寬度
+            image.style.height = "198px"; // 修改圖片高度
+            image.style.borderRadius = "50%"; // 添加圓形邊框
+            
+
+            preview.appendChild(image);
+            preview.appendChild(para);
+			 }
+		 }
+
+		 $(document).ready(function () {
+			 // jquery for toggle sub menus
+			 $('.sub-btn').click(function () {
+				 $(this).next('.sub-menu').slideToggle();
+				 $(this).find('.dropdown').toggleClass('rotate');
+			 });
+		 });
+		 
+		 window.onload = (event) => {
+             main();
+         }
+         
+         function main() {
+             const inputButton = document.querySelector("input[type='button']")
+             const inputFile = document.querySelector("input[type='file']")
+             
+             inputButton.onclick = (event) => {
+                 inputFile.click();
+             }
+             
+             inputFile.onchange = (event) => {
+                 const files = event.target.files;
+                 
+                 console.log(files);
+             }
+         }
+ 	</script>
+
+ </body>
+</html>

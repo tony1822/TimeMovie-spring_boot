@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>會員註冊測試</title>
+<link rel="stylesheet"  th:href="@{/css/memberRegis.css}">
+</head>
+<body>
+	<div class="container">
+		<div class="title">會員註冊</div>
+<div class="home"><a th:href="@{/member/}">回登入畫面</a></div>
+
+		<form method="post"  th:object="${memberVO}"   th:action="@{/member/From_Register}">
+			<div class="user-details">
+				<div class="input-box">
+					<span class="details">會員名稱</span>
+					 <input type="text" th:field="*{memberName}" placeholder="請輸入會員名稱">	
+					 <div style="color:red" th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" ></div>	
+				</div>
+
+				<div class="input-box">
+					<span class="details">會員信箱</span> <input type="text" th:field="*{memberEmail}"
+						placeholder="請輸入會員信箱">	
+						<div style="color:red" th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}" ></div>
+						<div style="color:red"  th:text="${#request.getAttribute('erroMessage3')}" ></div>
+				</div>
+
+				<div class="input-box">
+					<span class="details">會員電話</span> <input type="text" th:field="*{memberPhone}"
+					placeholder="請輸入會員電話">
+		<div style="color:red" th:if="${#fields.hasErrors('memberPhone')}" th:errors="*{memberPhone}" ></div>
+				</div>
+
+				<div class="input-box">
+					<span class="details">會員帳號</span> <input type="text" th:field="*{memberAccount}"
+						placeholder="請輸入會員帳號">
+						<div style="color:red" th:if="${#fields.hasErrors('memberAccount')}" th:errors="*{memberAccount}" ></div>
+				</div>
+
+				<div class="input-box">
+					<span class="details">會員密碼</span> <input type="password"
+						th:field="*{memberPassword}" placeholder="請輸入會員密碼">	
+						<div style="color:red" th:if="${#fields.hasErrors('memberPassword')}" th:errors="*{memberPassword}" ></div>	
+				</div>
+
+				<div class="input-box">
+					<span class="details">確認會員密碼</span> <input type="password"
+						name="paswdc" placeholder="請確認會員密碼" >
+						<div style="color:red"  th:text="${#request.getAttribute('erroMessage1')}" ></div>
+						<div style="color:red"  th:text="${#request.getAttribute('erroMessage2')}" ></div>
+				</div>
+			</div>
+
+			<div class="button"><input type="submit" value="註冊">
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>
